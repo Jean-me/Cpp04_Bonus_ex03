@@ -2,21 +2,24 @@
 
 Character::Character() : name("default_name"), floor(0)
 {
-	for (int i = 0; i < 4; ++i) inv[i] = 0;
+	for (int i = 0; i < 4; ++i)
+		inv[i] = 0;
 }
 
-Character::Character(std::string const & n) : name(n), floor(0)
+Character::Character(std::string const &n) : name(n), floor(0)
 {
-	for (int i = 0; i < 4; ++i) inv[i] = 0;
+	for (int i = 0; i < 4; ++i)
+		inv[i] = 0;
 }
 
-Character::Character(Character const & other) : name(other.name), floor(0)
+Character::Character(Character const &other) : name(other.name), floor(0)
 {
-	for (int i = 0; i < 4; ++i) inv[i] = 0;
+	for (int i = 0; i < 4; ++i)
+		inv[i] = 0;
 	copyFrom(other);
 }
 
-Character & Character::operator=(Character const & other)
+Character &Character::operator=(Character const &other)
 {
 	if (this != &other)
 	{
@@ -41,14 +44,14 @@ void Character::clearInvAndFloor()
 	}
 	while (floor)
 	{
-		Node* tmp = floor->next;
+		Node *tmp = floor->next;
 		delete floor->m;
 		delete floor;
 		floor = tmp;
 	}
 }
 
-void Character::copyFrom(Character const & other)
+void Character::copyFrom(Character const &other)
 {
 	for (int i = 0; i < 4; ++i)
 	{
@@ -60,17 +63,19 @@ void Character::copyFrom(Character const & other)
 	floor = 0;
 }
 
-void Character::floorPush(AMateria* m)
+void Character::floorPush(AMateria *m)
 {
-	if (!m) return;
+	if (!m)
+		return;
 	floor = new Node(m, floor);
 }
 
-std::string const & Character::getName() const { return name; }
+std::string const &Character::getName() const { return name; }
 
-void Character::equip(AMateria* m)
+void Character::equip(AMateria *m)
 {
-	if (!m) return;
+	if (!m)
+		return;
 	for (int i = 0; i < 4; ++i)
 	{
 		if (!inv[i])
@@ -79,20 +84,25 @@ void Character::equip(AMateria* m)
 			return;
 		}
 	}
+	delete m;
 }
 
 void Character::unequip(int idx)
 {
-	if (idx < 0 || idx >= 4) return;
-	if (!inv[idx]) return;
+	if (idx < 0 || idx >= 4)
+		return;
+	if (!inv[idx])
+		return;
 
 	floorPush(inv[idx]);
 	inv[idx] = 0;
 }
 
-void Character::use(int idx, ICharacter& target)
+void Character::use(int idx, ICharacter &target)
 {
-	if (idx < 0 || idx >= 4) return;
-	if (!inv[idx]) return;
+	if (idx < 0 || idx >= 4)
+		return;
+	if (!inv[idx])
+		return;
 	inv[idx]->use(target);
 }

@@ -2,16 +2,18 @@
 
 MateriaSource::MateriaSource()
 {
-	for (int i = 0; i < 4; ++i) templates[i] = 0;
+	for (int i = 0; i < 4; ++i)
+		templates[i] = 0;
 }
 
-MateriaSource::MateriaSource(MateriaSource const & other)
+MateriaSource::MateriaSource(MateriaSource const &other)
 {
-	for (int i = 0; i < 4; ++i) templates[i] = 0;
+	for (int i = 0; i < 4; ++i)
+		templates[i] = 0;
 	copyFrom(other);
 }
 
-MateriaSource & MateriaSource::operator=(MateriaSource const & other)
+MateriaSource &MateriaSource::operator=(MateriaSource const &other)
 {
 	if (this != &other)
 	{
@@ -35,7 +37,7 @@ void MateriaSource::clearTemplates()
 	}
 }
 
-void MateriaSource::copyFrom(MateriaSource const & other)
+void MateriaSource::copyFrom(MateriaSource const &other)
 {
 	for (int i = 0; i < 4; ++i)
 	{
@@ -46,20 +48,23 @@ void MateriaSource::copyFrom(MateriaSource const & other)
 	}
 }
 
-void MateriaSource::learnMateria(AMateria* m)
+void MateriaSource::learnMateria(AMateria *m)
 {
-	if (!m) return;
+	if (!m)
+		return;
 	for (int i = 0; i < 4; ++i)
 	{
 		if (!templates[i])
 		{
 			templates[i] = m->clone();
+			delete m;
 			return;
 		}
 	}
+	delete m;
 }
 
-AMateria* MateriaSource::createMateria(std::string const & t)
+AMateria *MateriaSource::createMateria(std::string const &t)
 {
 	for (int i = 0; i < 4; ++i)
 	{
